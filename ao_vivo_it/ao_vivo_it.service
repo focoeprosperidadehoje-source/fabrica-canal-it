@@ -1,0 +1,17 @@
+[Unit]
+Description=Live 24h IT — Forza e Protezione Divina (Madonna di Lourdes)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/ao_vivo_it
+ExecStart=/root/venv_it/bin/python3 /root/ao_vivo_it/ao_vivo_it.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
