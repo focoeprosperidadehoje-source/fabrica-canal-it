@@ -81,7 +81,7 @@ log = logging.getLogger("ao_vivo_it")
 # ═══════════════════════════════════════════════════════════════════════
 
 CANAL_ID       = os.environ.get("CANAL_ID_IT", "UCa1_Xd4tOUd6GSPNu7auY4A")
-PLAYLIST_LIVES = os.environ.get("PLAYLIST_ID_LIVES_IT", "PLACEHOLDER_LIVE_IT")
+PLAYLIST_LIVES = os.environ.get("PLAYLIST_ID_LIVES_IT", "PLUnBHcsm0Bo8")
 FUSO           = pytz.timezone(os.environ.get("FUSO_IT", "Europe/Rome"))
 
 STREAM_KEY_H   = os.environ.get("STREAM_KEY_H_IT", "")

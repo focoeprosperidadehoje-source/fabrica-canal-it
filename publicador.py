@@ -90,7 +90,7 @@ ID_PASTA_AVE_MARIA = "1VPmJ5JHXZ6ky0yRwVgqLmRZrl3HhtK3u"
 ID_PASTA_SFX = "1CxSDrCzVatG0bZwTVIN6yDKLO7umIgaX"
 ID_PASTA_THUMB_MARIA = "1C04BHKkhGcxv1NRxxrmlDkmIdTO__S4k"
 
-ID_PLAYLIST_MARIA_NOITE = "PLACEHOLDER_LONGOS_IT"  # Fill after creating playlist
+ID_PLAYLIST_MARIA_NOITE = "PLQzVYOjJgYQE"
 
 def baixar_arquivo(file_id, destino):
     for tentativa in range(4):

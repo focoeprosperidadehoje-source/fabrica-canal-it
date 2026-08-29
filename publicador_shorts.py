@@ -32,7 +32,7 @@ os.makedirs(PASTA_TEMP, exist_ok=True)
 ID_PASTA_MARIA_VERT = "1QSUf1NYJbw8M_AOXiX50R_IZ8sPyXrHz"  # Maria Universal vertical (shared)
 ID_PASTA_MUSICAS = "1gxZA1TlQPzuf737XOo_n8blfOThnddgm"
 
-ID_PLAYLIST_SHORTS_IT = "PLACEHOLDER_SHORTS_IT"  # Fill after creating playlist
+ID_PLAYLIST_SHORTS_IT = "PLTXChH3dc-v8"
 
 def baixar_arquivo(file_id, destino):
     for tentativa in range(4):
