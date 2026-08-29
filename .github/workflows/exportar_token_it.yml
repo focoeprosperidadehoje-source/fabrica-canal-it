@@ -1,0 +1,39 @@
+name: Exportar Token IT (para setar secret local)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  exportar:
+    name: Le token do VPS2 e salva como artifact
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Configure SSH for VPS2
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY_VPS_IT }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" | tr -d '\r' > ~/.ssh/vps_key
+          chmod 600 ~/.ssh/vps_key
+          ssh-keyscan -H 169.58.220.233 >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Ler token do VPS2
+        run: |
+          mkdir -p artifact_it
+          ssh -i ~/.ssh/vps_key -o StrictHostKeyChecking=no root@169.58.220.233 \
+            "cat /root/ao_vivo_it/youtube_token.json" > artifact_it/youtube_token_it.json
+          echo "Token lido:"
+          python3 -c "import json,sys; d=json.load(open('artifact_it/youtube_token_it.json')); print('refresh_token presente:', bool(d.get('refresh_token'))); print('client_id:', d.get('client_id','')[:20]+'...')"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: youtube-token-it
+          path: artifact_it/youtube_token_it.json
+          retention-days: 1
+
+      - name: Remove temporary SSH key
+        if: always()
+        run: rm -f ~/.ssh/vps_key
