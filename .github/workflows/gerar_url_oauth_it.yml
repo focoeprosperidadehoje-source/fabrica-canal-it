@@ -1,11 +1,11 @@
-name: 🔑 Passo 1 — Gerar URL OAuth IT
+name: Gerar URL OAuth IT
 
 on:
   workflow_dispatch:
 
 jobs:
   gerar-url:
-    name: Gera URL de autorização OAuth para Canal IT
+    name: Gera URL de autorizacao OAuth para Canal IT
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -19,76 +19,56 @@ jobs:
           chmod 600 ~/.ssh/vps_key
           ssh-keyscan -H 169.58.220.233 >> ~/.ssh/known_hosts 2>/dev/null
 
-      - name: Setup .env IT e gerar URL OAuth
+      - name: Escrever credenciais OAuth no .env IT
         run: |
-          ssh -i ~/.ssh/vps_key -o StrictHostKeyChecking=no root@169.58.220.233 bash << 'ENDSSH'
+          ssh -i ~/.ssh/vps_key -o StrictHostKeyChecking=no root@169.58.220.233 << 'ENDSSH'
           set -e
-
-          # Extrai client_id e client_secret do token do EN (mesmo OAuth app)
-          CLIENT_ID=$(python3 -c "import json; d=json.load(open('/root/ao_vivo_en/youtube_token.json')); print(d.get('client_id',''))")
-          CLIENT_SECRET=$(python3 -c "import json; d=json.load(open('/root/ao_vivo_en/youtube_token.json')); print(d.get('client_secret',''))")
-
-          if [ -z "$CLIENT_ID" ] || [ -z "$CLIENT_SECRET" ]; then
-            echo "ERRO: nao foi possivel extrair client_id/secret do token EN"
-            exit 1
-          fi
-
-          # Cria/atualiza o .env IT com as credenciais OAuth
+          CID=$(python3 -c "import json; d=json.load(open('/root/ao_vivo_en/youtube_token.json')); print(d.get('client_id',''))")
+          CSE=$(python3 -c "import json; d=json.load(open('/root/ao_vivo_en/youtube_token.json')); print(d.get('client_secret',''))")
+          if [ -z "$CID" ] || [ -z "$CSE" ]; then echo "ERRO: credenciais vazias"; exit 1; fi
           touch /root/ao_vivo_it/.env
-          grep -v "^YT_CLIENT_ID=\|^YT_CLIENT_SECRET=" /root/ao_vivo_it/.env > /tmp/env_it_tmp 2>/dev/null || true
-          echo "YT_CLIENT_ID=$CLIENT_ID" >> /tmp/env_it_tmp
-          echo "YT_CLIENT_SECRET=$CLIENT_SECRET" >> /tmp/env_it_tmp
-          cp /tmp/env_it_tmp /root/ao_vivo_it/.env
-
-          echo "Credenciais OAuth escritas no .env IT"
-
-          # Gera a URL de autorização
-          /root/venv_it/bin/python3 << 'PYEOF'
-import os, sys
-
-with open('/root/ao_vivo_it/.env') as f:
-    for line in f:
-        line = line.strip()
-        if '=' in line and not line.startswith('#'):
-            k, v = line.split('=', 1)
-            os.environ.setdefault(k, v)
-
-CLIENT_ID     = os.environ.get('YT_CLIENT_ID', '')
-CLIENT_SECRET = os.environ.get('YT_CLIENT_SECRET', '')
-
-sys.path.insert(0, '/root/venv_it/lib/python3.12/site-packages')
-from google_auth_oauthlib.flow import InstalledAppFlow
-
-client_config = {
-    "installed": {
-        "client_id": CLIENT_ID,
-        "client_secret": CLIENT_SECRET,
-        "redirect_uris": ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"],
-        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-        "token_uri": "https://oauth2.googleapis.com/token",
-    }
-}
-
-flow = InstalledAppFlow.from_client_config(client_config, ["https://www.googleapis.com/auth/youtube"])
-flow.redirect_uri = "urn:ietf:wg:oauth:2.0:oob"
-auth_url, _ = flow.authorization_url(prompt="consent", access_type="offline")
-
-print()
-print("=" * 60)
-print("CANAL IT — URL DE AUTORIZAÇÃO OAUTH")
-print("=" * 60)
-print()
-print(auth_url)
-print()
-print("=" * 60)
-print("1. Copie a URL acima e abra no navegador")
-print("2. Faça login com: canalinteligenciadivinaitalia@gmail.com")
-print("3. Autorize e copie o CÓDIGO exibido pelo Google")
-print("4. Execute o workflow 'Passo 2 — Salvar Token IT'")
-print("   com o código como parâmetro")
-print("=" * 60)
-PYEOF
+          grep -v "^YT_CLIENT_ID=\|^YT_CLIENT_SECRET=" /root/ao_vivo_it/.env > /tmp/env_it.tmp 2>/dev/null || true
+          printf 'YT_CLIENT_ID=%s\nYT_CLIENT_SECRET=%s\n' "$CID" "$CSE" >> /tmp/env_it.tmp
+          cp /tmp/env_it.tmp /root/ao_vivo_it/.env
+          echo "Credenciais escritas no .env IT"
           ENDSSH
+
+      - name: Gerar URL de autorizacao OAuth
+        run: |
+          ssh -i ~/.ssh/vps_key -o StrictHostKeyChecking=no root@169.58.220.233 "/root/venv_it/bin/python3 -" << 'PYEOF'
+          import os, sys
+          sys.path.insert(0, '/root/venv_it/lib/python3.12/site-packages')
+          with open('/root/ao_vivo_it/.env') as f:
+              for line in f:
+                  line = line.strip()
+                  if '=' in line and not line.startswith('#'):
+                      k, v = line.split('=', 1)
+                      os.environ.setdefault(k, v)
+          CLIENT_ID     = os.environ.get('YT_CLIENT_ID', '')
+          CLIENT_SECRET = os.environ.get('YT_CLIENT_SECRET', '')
+          if not CLIENT_ID or not CLIENT_SECRET:
+              print("ERRO: credenciais ausentes no .env IT")
+              sys.exit(1)
+          from google_auth_oauthlib.flow import InstalledAppFlow
+          cfg = {"installed": {"client_id": CLIENT_ID, "client_secret": CLIENT_SECRET,
+              "redirect_uris": ["urn:ietf:wg:oauth:2.0:oob", "http://localhost"],
+              "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+              "token_uri": "https://oauth2.googleapis.com/token"}}
+          flow = InstalledAppFlow.from_client_config(cfg, ["https://www.googleapis.com/auth/youtube"])
+          flow.redirect_uri = "urn:ietf:wg:oauth:2.0:oob"
+          url, _ = flow.authorization_url(prompt="consent", access_type="offline")
+          print()
+          print("=" * 60)
+          print("CANAL IT - URL DE AUTORIZACAO OAUTH")
+          print("=" * 60)
+          print(url)
+          print("=" * 60)
+          print("1. Copie a URL acima e abra no navegador")
+          print("2. Login com: canalinteligenciadivinaitalia@gmail.com")
+          print("3. Autorize e copie o CODIGO exibido")
+          print("4. Execute workflow 'Salvar Token IT' com esse codigo")
+          print("=" * 60)
+          PYEOF
 
       - name: Remove temporary SSH key
         if: always()
