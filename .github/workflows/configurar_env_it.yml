@@ -27,8 +27,8 @@ jobs:
         env:
           GCP_JSON: ${{ secrets.GOOGLE_CREDENTIALS_IT }}
         run: |
-          ssh -i ~/.ssh/vps_key -o StrictHostKeyChecking=no root@169.58.220.233 \
-            GCP_JSON="$GCP_JSON" bash -c 'printf "%s" "$GCP_JSON" > /root/ao_vivo_it/google_credentials_it.json && echo "google_credentials_it.json OK"'
+          printf '%s' "$GCP_JSON" | ssh -i ~/.ssh/vps_key -o StrictHostKeyChecking=no root@169.58.220.233 \
+            "cat > /root/ao_vivo_it/google_credentials_it.json && echo 'google_credentials_it.json OK'"
 
       - name: Escrever variaveis no .env IT
         env:
