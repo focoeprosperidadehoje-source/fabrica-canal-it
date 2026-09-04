@@ -323,7 +323,10 @@ for index, linha in enumerate(dados, start=2):
                     pid = ID_PLAYLIST_MARIA_NOITE
                     if pid and not pid.startswith("PLACEHOLDER"): youtube.playlistItems().insert(part="snippet", body={"snippet": {"playlistId": pid, "resourceId": {"kind": "youtube#video", "videoId": video_id}}}).execute()
                 except Exception as e: print(f"   ⚠️ Avviso: playlist non aggiornata: {e}")
-                aba_principal.update_cell(index, col_status, 'Published')
+                try:
+                    aba_principal.update_cell(index, col_status, 'Published')
+                    print(f"   📋 Foglio aggiornato. Riga {index} completata.")
+                except Exception as e: print(f"   ⚠️ Errore aggiornamento foglio: {e}")
                 break
             except Exception as e:
                 print(f"   ❌ Errore YouTube (Tentativo {tentativa+1}/3): {e}")

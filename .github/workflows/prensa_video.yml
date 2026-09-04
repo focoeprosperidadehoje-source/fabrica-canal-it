@@ -2,10 +2,8 @@ name: 2. Prensa Longos (Matrix IT)
 
 on:
   schedule:
-    - cron: '30 8 * * *'
-    - cron: '30 9 * * *'
-    - cron: '30 20 * * *'
-    - cron: '30 21 * * *'
+    - cron: '30 8 * * *'   # 10:30 Rome time (UTC+2 summer)
+    - cron: '30 20 * * *'  # 22:30 Rome (UTC+2 summer)
   workflow_dispatch:
 
 jobs:
