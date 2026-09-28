@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: '30 8 * * *'   # 10:30 Rome time (UTC+2 summer)
     - cron: '30 20 * * *'  # 22:30 Rome (UTC+2 summer)
+  workflow_run:  # renderiza logo depois de cada execução da usina
+    workflows: ["1. Usina Longos (IT)"]
+    types: [completed]
   workflow_dispatch:
 
 jobs:
