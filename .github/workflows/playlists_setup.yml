@@ -1,0 +1,28 @@
+name: 5. Playlists das Novenas (IT)
+
+on:
+  schedule:
+    - cron: '37 9 * * 1' # segunda
+  push:
+    paths:
+      - '.github/workflows/playlists_setup.yml'
+      - 'playlists_setup.py'
+  workflow_dispatch:
+
+jobs:
+  playlists:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3'
+      - run: pip install google-api-python-client google-auth-oauthlib google-auth-httplib2 gspread google-genai pytz
+      - env:
+          CANAL: "IT"
+          GOOGLE_CREDENTIALS_IT: ${{ secrets.GOOGLE_CREDENTIALS_IT }}
+          YOUTUBE_TOKEN_IT: ${{ secrets.YOUTUBE_TOKEN_IT }}
+        run: python playlists_setup.py
