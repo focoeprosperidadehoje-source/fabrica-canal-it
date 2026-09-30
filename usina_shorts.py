@@ -109,7 +109,7 @@ for data_alvo, grade_para_processar in gaps:
         {contexto_eco}
 
         STRUTTURA OBBLIGATORIA DELLO SCRIPT (LOOP PERFETTO):
-        1. HOOK (Inizio): La prima frase del video. OBBLIGATORIO iniziare con puntini di sospensione in minuscolo ("..."). È il COMPLEMENTO SINTATTICO della frase finale — insieme formano una frase unica, continua e completa.
+        1. HOOK (Inizio): La prima frase del video. OBBLIGATORIO iniziare con puntini di sospensione in minuscolo ("..."). È il COMPLEMENTO SINTATTICO della frase finale — insieme formano una frase unica, continua e completa. REGOLA DI RETENZIONE (obbligatoria): nelle prime 10 parole la frase iniziale parla DIRETTAMENTE al dolore di chi guarda, in seconda persona e legata al tema del giorno (es.: "...se qualcuno nella tua casa è malato, questa preghiera è per te."). Vietato aprire con saluti, contesto o frasi generiche — lo spettatore decide in 2 secondi se restare.
         2. PREGHIERA: Scrivi ESATTAMENTE questa preghiera: "{oracao_padrao}"
         3. FRASE DEL LOOP (Fine): L'ultima frase del video. OBBLIGATORIO terminare con puntini di sospensione ("..."). Deve essere SINTATTICAMENTE INCOMPLETA — una proposizione aperta il cui complemento naturale è esattamente la frase di apertura.
 

@@ -267,12 +267,12 @@ for video in grade_para_processar:
 
     REGOLE DI RITENZIONE E COPYWRITING (MOLTO IMPORTANTI):
     1. FORMULA DEL TITOLO: Segui ESATTAMENTE il formato indicato. Per la Madonna: OBBLIGATORIO iniziare con 'Madonna' o 'Nostra Signora'. È STRETTAMENTE VIETATO iniziare con la parola 'Preghiera'.
-    2. FORMULA THUMB: Massimo 4 parole. DEVE essere un trigger di urgenza connesso al tema (Es: "MIRACOLO URGENTE OGGI", "SALVA LA TUA FAMIGLIA", "FINE DELL'ANSIA").
+    2. FORMULA THUMB (MODELLO CAMPIONE — dati reali di CTR): 2 o 3 parole = RISULTATO CONCRETO + parola di urgenza alla fine (OGGI / ORA). Es: "MIRACOLO OGGI", "PORTE APERTE ORA", "GUARIGIONE OGGI", "FAMIGLIA RESTAURATA OGGI". VIETATO: sole parole di calma/astratte senza risultato (es. "PACE PROFONDA", "NOTTE SERENA") — test reale: "MIRACLE TODAY" 4,7% di CTR vs "DEEP PEACE TONIGHT" 1,6%.
     3. LA REGOLA DEI 15 SECONDI (HOOK 3A): L'inizio dello script DEVE avere 3 blocchi rapidi:
        - Attenzione (0-5s): Un'AFFERMAZIONE EMPATICA sul dolore del credente. (VIETATO usare domande dirette).
        - Ambientazione sensoriale (5-10s): Connetti il dolore con la scena di {periodo}.
        - Autorità/Agenda (10-15s): Di' che {persona_prompt} ha una parola di liberazione e chiedi di restare fino alla fine.
-    4. CTA IMMEDIATO: {cta_comentarios}
+    4. CTA IMMEDIATO: {cta_comentarios} Nella CHIUSURA, chiedi anche con naturalezza al fedele di INVIARE questa preghiera a qualcuno che ne ha bisogno (es.: "Se mentre pregavi ti è venuto in mente qualcuno, inviagli questa preghiera adesso."). La condivisione è la richiesta principale della fine.
     5. RESET DELL'ATTENZIONE (A METÀ VIDEO): Esattamente a metà dello script, inserisci una frase parlata per riconnettere l'ascoltatore.
     6. GANCI DI RITENZIONE INVISIBILI: Ogni 300-400 parole, incorpora organicamente uno di questi: (a) ANTICIPAZIONE; (b) RIVELAZIONE PARZIALE; (c) VALIDAZIONE EMOTIVA; (d) CAMBIO DI BLOCCO.
 
