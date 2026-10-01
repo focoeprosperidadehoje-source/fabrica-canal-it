@@ -167,11 +167,6 @@ TITULOS_LIVE = {
 DESCRICAO_LIVE = (
     "🙏 Trasmissione continua di preghiera con la Vergine Maria — Madonna di Lourdes.\n\n"
     "Lascia la tua intenzione di preghiera nei commenti — la tua Madre del Cielo ti ascolta.\n\n"
-    "💝 Sostieni questa missione di preghiera continua:\n"
-    "👉 https://www.paypal.com/donate/?hosted_button_id=P5E5EBVM2HWGS\n\n"
-    "📿 Articoli benedetti:\n"
-    "• Rosario della Madonna → https://amzn.to/40ewSZU\n"
-    "• Bibbia Grande Formato → https://amzn.to/4afDGLy\n\n"
     "🔔 Iscriviti · 👍 Metti Mi Piace · ➡️ Visita il Canale"
 )
 
