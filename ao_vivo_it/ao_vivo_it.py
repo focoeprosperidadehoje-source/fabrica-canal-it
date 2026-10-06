@@ -1453,7 +1453,7 @@ def loop_transmissor():
                         rot_idx_h = (rot_idx_h + 1) % len(blocos)
                         log.info(f"Block IT appended: {h_next.name} ({buf_h - elapsed:.0f}s)")
 
-                    if yt and (time.time() - ultimo_check_bc) >= 120:
+                    if yt and (time.time() - ultimo_check_bc) >= 600:
                         ultimo_check_bc = time.time()
                         if not bid_h:
                             log.warning("Watchdog IT: bid_h=None — trying to create broadcast")
@@ -1594,7 +1594,7 @@ def _gerar_resposta_chat_it(autor: str, texto: str) -> str | None:
 def loop_respostas_chat():
     yt = get_youtube()
     ids_vistos: set = set()
-    INTERVALO = 5 * 60
+    INTERVALO = 10 * 60
     MAX_POR_HORA = 12
     respostas_hora = 0
     hora_inicio = time.time()
